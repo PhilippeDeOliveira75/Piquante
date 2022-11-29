@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Thing = require('../models/thing');
+const Sauce = require('../models/sauces');
 
 router.post('/', (req, res, next) => {
   const Sauce = new Sauce({
@@ -11,7 +11,7 @@ router.post('/', (req, res, next) => {
     price: req.body.price,
     userId: req.body.userId
   });
-  thing.save().then(
+  Sauce.save().then(
     () => {
       res.status(201).json({
         message: 'Post saved successfully!'
@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  Thing.findOne({
+  Sauce.findOne({
     _id: req.params.id
   }).then(
     (thing) => {
@@ -43,7 +43,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.put('/:id', (req, res, next) => {
-  const thing = new Thing({
+  const Sauce = new Sauce({
     _id: req.params.id,
     title: req.body.title,
     description: req.body.description,
@@ -51,7 +51,7 @@ router.put('/:id', (req, res, next) => {
     price: req.body.price,
     userId: req.body.userId
   });
-  Thing.updateOne({_id: req.params.id}, thing).then(
+  Sauce.updateOne({_id: req.params.id}, thing).then(
     () => {
       res.status(201).json({
         message: 'Thing updated successfully!'
@@ -67,7 +67,7 @@ router.put('/:id', (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-  Thing.deleteOne({_id: req.params.id}).then(
+  Sauce.deleteOne({_id: req.params.id}).then(
     () => {
       res.status(200).json({
         message: 'Deleted!'
@@ -84,7 +84,7 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/' +
   '', (req, res, next) => {
-  Thing.find().then(
+  Sauce.find().then(
     (things) => {
       res.status(200).json(things);
     }
