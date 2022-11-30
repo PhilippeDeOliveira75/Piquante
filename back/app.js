@@ -4,11 +4,13 @@ const path = require('path');
 
 // importation des modèles sauces et users
 const Sauce = require('./models/sauces');
-const User = require('./models/user');
+const User = require('./models/users');
+
 // importation des routes sauces et users
 const saucesRoutes = require('./routes/sauces');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/users');
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
 
