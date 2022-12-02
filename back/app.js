@@ -10,10 +10,6 @@ const User = require('./models/users');
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/users');
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/api/sauces', saucesRoutes);
-app.use('/api/auth', userRoutes);
-
 const app = express();
 
 // Connection avec la base de données MongoDB 
