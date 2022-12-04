@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
+
 
 // importation des modèles sauces et users
 const Sauce = require('./models/sauces');
@@ -23,6 +25,8 @@ mongoose.connect('mongodb+srv://Philippe:Onizuka07@cluster.0ehnltw.mongodb.net/?
   });
 
 app.use(express.json());
+
+app.use(cors());
 
 // Gestion des erreurs CORS
 app.use((req, res, next) => {
