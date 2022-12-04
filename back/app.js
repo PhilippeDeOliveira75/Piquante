@@ -22,13 +22,16 @@ mongoose.connect('mongodb+srv://Philippe:Onizuka07@cluster.0ehnltw.mongodb.net/?
     console.log(err);
   });
 
-// Gestion de erreurs CORS
+app.use(express.json());
+
+// Gestion des erreurs CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
+
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', saucesRoutes);
