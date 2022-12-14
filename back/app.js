@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 
+require('dotenv').config()
 
 // importation des modèles sauces et users
 const Sauce = require('./models/sauces');
@@ -11,6 +12,19 @@ const User = require('./models/users');
 // importation des routes sauces et users
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/users');
+
+const sanitize = require('express-mongo-sanitize');
+
+const rateLimit = require('express-rate-limit')
+
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+const helmet = require("helmet");
 
 const app = express();
 
@@ -40,5 +54,11 @@ app.use((req, res, next) => {
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
+
+app.use('/api', limiter);
+
+app.use(sanitize());
+
+app.use(helmet());
 
 module.exports = app;
